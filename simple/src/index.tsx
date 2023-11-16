@@ -1,10 +1,13 @@
 import { Hono } from "hono";
-import { jsxRenderer, useRequestContext } from "hono/jsx-renderer";
+import { jsxRenderer } from "hono/jsx-renderer";
 import { getVehicleStatuses } from "./transloc/vehicle-status";
-import { RootLayout } from "./components/root";
 import { VehicleStatus } from "components/vehicles";
 import { getRoutes } from "transloc/routes";
 import { Fragment } from "hono/jsx/jsx-runtime";
+import { getStopInfo } from "transloc/stops";
+import { StopDisplay } from "components/stops";
+import { zValidator } from "@hono/zod-validator";
+import { z } from "zod";
 
 const app = new Hono();
 
@@ -49,7 +52,46 @@ app.get("/app", async (c) => {
 });
 
 app.get("/app/stops", async (c) => {
-  return c.render(<div></div>);
+  const stopData = await getStopInfo();
+
+  return c.render(
+    <Fragment>
+      <h1 class="text-4xl px-4 w-screen text-center">Stops</h1>
+      <div class="flex flex-col border-separate px-4">
+        {stopData.stops.map((s) => (
+          <StopDisplay stop={s} isLink />
+        ))}
+      </div>
+    </Fragment>
+  );
+});
+
+app.get("/app/stops/:stopId", async (c) => {
+  const stopIdParsed = z.coerce.number().int().safeParse(c.req.param("stopId"));
+  if (stopIdParsed.success === false) {
+    return c.notFound();
+  }
+  const stopId = stopIdParsed.data;
+  const stopData = await getStopInfo();
+
+  const stop = stopData.stops.find((s) => s.id === stopId);
+
+  if (!stop) {
+    return c.notFound();
+  }
+
+  return c.render(
+    <Fragment>
+      <h1 class="text-4xl px-4 w-screen text-center">Stops</h1>
+      <div class="flex flex-col border-separate px-4">
+        {stop ? (
+          <StopDisplay stop={stop} />
+        ) : (
+          <div>Stop {stopId} not found</div>
+        )}
+      </div>
+    </Fragment>
+  );
 });
 
 export default {
