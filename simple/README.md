@@ -1,8 +1,8 @@
 ```
 bun install
-bun run dev
+bun dev
 ```
 
 ```
-open http://localhost:3000
+open http://localhost:4300
 ```
