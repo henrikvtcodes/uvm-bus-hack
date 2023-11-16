@@ -20,7 +20,12 @@ export interface Route {
 }
 
 export async function getRoutes() {
-  const response = await fetch(`${API_URL}/3/routes?agencies=${AGENCY_ID}`);
+  const response = await fetch(`${API_URL}/routes?agencies=${AGENCY_ID}`);
+  // console.log({
+  //   url: `${API_URL}/routes?agencies=${AGENCY_ID}`,
+  //   status: response.status,
+  //   statusText: response.statusText,
+  // });
   const data = await response.json<Routes>();
   return data;
 }

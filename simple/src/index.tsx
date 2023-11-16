@@ -2,11 +2,14 @@ import { Hono } from "hono";
 import { jsxRenderer, useRequestContext } from "hono/jsx-renderer";
 import { getVehicleStatuses } from "./transloc/vehicle-status";
 import { RootLayout } from "./components/root";
+import { VehicleStatus } from "components/vehicles";
+import { getRoutes } from "transloc/routes";
+import { Fragment } from "hono/jsx/jsx-runtime";
 
 const app = new Hono();
 
 app.get(
-  "/*",
+  "/app/*",
   jsxRenderer(
     ({ children }) => {
       return (
@@ -28,42 +31,25 @@ app.get(
   )
 );
 
-app.get("/hello", (c) => c.text("Hello Hono!"));
-
-app.get("/status", async (c) => {
+app.get("/app", async (c) => {
   const vehiclestatus = await getVehicleStatuses();
+  const routeData = await getRoutes();
   return c.render(
-    <RootLayout>
-      <h1 class="text-4xl"> Vehicles on {vehiclestatus} </h1>
-      <div class="flex flex-col border-separate">
+    <Fragment>
+      <h1 class="text-4xl px-4 w-screen text-center">
+        Vehicles on {vehiclestatus}
+      </h1>
+      <div class="flex flex-col border-separate px-4">
         {vehiclestatus.vehicles.map((v) => (
-          <div class="border-y-2">
-            <h2 class="text-2xl">Vehicle: {v.call_name}</h2>
-            {/* Generate a table based on the vehicle data */}
-            <div class="flex flex-col">
-              <div class="inline-flex">
-                <span class="text-semibold">Service Status:</span>
-                {v.service_status}
-              </div>
-              <div class="inline-flex">
-                <span class="text-semibold">Stop Pattern ID: </span>
-                {v.stop_pattern_id}
-              </div>
-              <div class="inline-flex">
-                <span class="text-semibold">Speed: </span>
-                {v.speed}
-              </div>
-            </div>
-          </div>
+          <VehicleStatus vehicle={v} routeData={routeData} />
         ))}
       </div>
-    </RootLayout>
+    </Fragment>
   );
 });
 
-app.get("/statraw", async (c) => {
-  const vehiclestatus = await getVehicleStatuses();
-  return c.json(vehiclestatus);
+app.get("/app/stops", async (c) => {
+  return c.render(<div></div>);
 });
 
 export default {
