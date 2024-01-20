@@ -1,15 +1,3 @@
 # transloc
 
-To install dependencies:
-
-```bash
-bun install
-```
-
-To run:
-
-```bash
-bun run src/index.ts
-```
-
-This project was created using `bun init` in bun v1.0.20. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+This is a client for the (presumably internal) Transloc Feed API. I have reverse-engineered this entirely from https://uvm.transloc.com. There are likely API endpoints I may not be aware of. No guarantees made here - it's the wild west.
