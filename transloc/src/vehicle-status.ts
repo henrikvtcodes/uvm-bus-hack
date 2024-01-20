@@ -1,5 +1,3 @@
-import { API_URL, AGENCY_ID } from "../constants";
-
 export interface VehicleStatus {
   agency_service_statuses: Status[];
   arrivals: Arrival[];
@@ -50,12 +48,4 @@ export interface Vehicle {
   timestamp: number;
   load: any;
   apc_status: string;
-}
-
-export async function getVehicleStatuses() {
-  const response = await fetch(
-    `${API_URL}/vehicle_statuses?agencies=${AGENCY_ID}&include_arrivals=true`
-  );
-  const data = await response.json<VehicleStatus>();
-  return data;
 }

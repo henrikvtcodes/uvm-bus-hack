@@ -45,6 +45,15 @@ export class Transloc {
     return data;
   }
 
+  /** I pinky promise this is different from the other one LMAO */
+  async getVehicleStatuses() {
+    const url = new URL("/vehicle_statuses", this.apiURL);
+    url.searchParams.set("include_arrivals", "true");
+    const response = await fetch(url);
+    const data = (await response.json()) as StopInfo;
+    return data;
+  }
+
   static filterStopsByRoute(data: StopInfo, routeId: number) {
     const route = data.routes.find((route) => route.id === routeId);
     if (!route) {
