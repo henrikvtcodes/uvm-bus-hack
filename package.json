@@ -3,7 +3,8 @@
   "type": "module",
   "workspaces": [
     "simple",
-    "server"
+    "server",
+    "transloc"
   ],
   "devDependencies": {
     "@types/bun": "latest"
