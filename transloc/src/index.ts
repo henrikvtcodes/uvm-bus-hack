@@ -2,8 +2,8 @@ import type { Agencies } from "./agencies";
 import type { Routes } from "./routes";
 import type { StopInfo } from "./stops";
 
-export const AGENCY_ID = 603;
-export const API_URL = "https://feeds.transloc.com/3";
+export const UVM_AGENCY_ID = 603 as const;
+export const API_URL = "https://feeds.transloc.com/3" as const;
 
 export class Transloc {
   private apiURL: URL;

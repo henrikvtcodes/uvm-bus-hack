@@ -1,11 +1,11 @@
 import { Elysia } from "elysia";
-import { Transloc, API_URL, AGENCY_ID, type StopInfo } from "transloc";
+import { Transloc, API_URL, UVM_AGENCY_ID, type StopInfo } from "transloc";
 import { locationStreamWorker } from "./workers";
 import {
   LocationStreamOnMessage,
   LocationStreamPostMessage,
 } from "./workers/location_stream";
-const transloc = new Transloc(AGENCY_ID);
+const transloc = new Transloc(UVM_AGENCY_ID);
 
 const locations = new Map<number, StopInfo>();
 

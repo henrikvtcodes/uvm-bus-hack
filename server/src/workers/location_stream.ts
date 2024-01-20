@@ -1,8 +1,8 @@
-import { StopInfo, Transloc, AGENCY_ID } from "transloc";
+import { StopInfo, Transloc, UVM_AGENCY_ID } from "transloc";
 
 declare var self: Worker;
 
-const transloc = new Transloc(AGENCY_ID);
+const transloc = new Transloc(UVM_AGENCY_ID);
 
 transloc.getVehicleStatus;
 
