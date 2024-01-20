@@ -1,11 +1,11 @@
 import { Elysia } from "elysia";
-import { Transloc, API_URL, AGENCY_ID StopInfo } from "transloc";
+import { Transloc, API_URL, AGENCY_ID, type StopInfo } from "transloc";
 import { locationStreamWorker } from "./workers";
 import {
   LocationStreamOnMessage,
   LocationStreamPostMessage,
 } from "./workers/location_stream";
-const transloc = new Transloc(API_URL, AGENCY_ID);
+const transloc = new Transloc(AGENCY_ID);
 
 const locations = new Map<number, StopInfo>();
 
@@ -26,7 +26,7 @@ app.ws("/locations", {
   // Send a message every time the locationStreamWorker sends new
   open: (ws) => {
     setInterval(() => {
-      ws.send();
+      ws.send("hi");
     }, 1000);
   },
 });
