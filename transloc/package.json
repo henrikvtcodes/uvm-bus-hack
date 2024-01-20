@@ -1,11 +1,9 @@
 {
   "name": "transloc",
+  "main": "src/index.ts",
   "module": "src/index.ts",
   "exports": {
-    ".": {
-      "require": "./src/index.ts",
-      "import": "./src/index.ts"
-    }
+    ".": "./src/index.ts"
   },
   "type": "module",
   "devDependencies": {
