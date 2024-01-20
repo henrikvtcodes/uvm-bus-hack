@@ -9,7 +9,7 @@ export class Transloc {
   private apiURL: URL;
   private agencyId: number;
 
-  constructor(api_url: string = API_URL, agency_id: number = AGENCY_ID) {
+  constructor(api_url: string = API_URL, agency_id: number) {
     this.apiURL = new URL(api_url);
     this.apiURL.searchParams.set("agencies", agency_id.toString());
     this.agencyId = agency_id;
