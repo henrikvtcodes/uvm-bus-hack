@@ -4,7 +4,8 @@
   "workspaces": [
     "simple",
     "server",
-    "transloc"
+    "transloc",
+    "peaktransit"
   ],
   "devDependencies": {
     "@types/bun": "latest"
