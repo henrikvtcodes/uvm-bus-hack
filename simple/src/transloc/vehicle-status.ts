@@ -56,6 +56,6 @@ export async function getVehicleStatuses() {
   const response = await fetch(
     `${API_URL}/vehicle_statuses?agencies=${AGENCY_ID}&include_arrivals=true`
   );
-  const data = await response.json<VehicleStatus>();
+  const data = await response.json();
   return data;
 }

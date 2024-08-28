@@ -8,8 +8,13 @@ import { getStopInfo } from "transloc/stops";
 import { StopDisplay } from "components/stops";
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
+import { Transloc, UVM_AGENCY_ID } from "transloc";
 
 const app = new Hono();
+
+const transloc = new Transloc(UVM_AGENCY_ID);
+
+app.get("/", (c) => c.text("Hello Bun!"));
 
 app.get(
   "/app/*",
@@ -35,8 +40,11 @@ app.get(
 );
 
 app.get("/app", async (c) => {
-  const vehiclestatus = await getVehicleStatuses();
-  const routeData = await getRoutes();
+  const vehiclestatus = await transloc.getVehicleStatuses();
+  const routeData = await transloc.getRoutes();
+  console.log(JSON.stringify(vehiclestatus, null, 2));
+  console.log(JSON.stringify(routeData, null, 2));
+
   return c.render(
     <Fragment>
       <h1 class="text-4xl px-4 w-screen text-center">
@@ -52,7 +60,8 @@ app.get("/app", async (c) => {
 });
 
 app.get("/app/stops", async (c) => {
-  const stopData = await getStopInfo();
+  const stopData = await transloc.getStopInfo();
+  console.log(stopData);
 
   return c.render(
     <Fragment>
@@ -72,7 +81,8 @@ app.get("/app/stops/:stopId", async (c) => {
     return c.notFound();
   }
   const stopId = stopIdParsed.data;
-  const stopData = await getStopInfo();
+  const stopData = await transloc.getStopInfo();
+  console.log(stopData);
 
   const stop = stopData.stops.find((s) => s.id === stopId);
 

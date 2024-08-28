@@ -1,3 +1,4 @@
+import type { VehicleStatus } from ".";
 import type { Agencies } from "./agencies";
 import type { Routes } from "./routes";
 import type { StopInfo } from "./stops";
@@ -17,6 +18,8 @@ export class Transloc {
 
   async getRoutes() {
     const url = new URL("/routes", this.apiURL);
+    console.log(url.toString());
+
     const response = await fetch(url);
     const data = (await response.json()) as Routes;
     return data;
@@ -50,7 +53,7 @@ export class Transloc {
     const url = new URL("/vehicle_statuses", this.apiURL);
     url.searchParams.set("include_arrivals", "true");
     const response = await fetch(url);
-    const data = (await response.json()) as StopInfo;
+    const data = (await response.json()) as VehicleStatus;
     return data;
   }
 
