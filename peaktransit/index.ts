@@ -12,6 +12,12 @@ export const PEAKTRANSIT_UVM_ROOT_URL = new URL(
 const PEAKTRANSIT_UVM_SHAPES_URL = new URL(PEAKTRANSIT_UVM_ROOT_URL);
 PEAKTRANSIT_UVM_SHAPES_URL.searchParams.append("controller", "shape2");
 
+export async function getRouteShapes() {
+  return (await (
+    await fetch(PEAKTRANSIT_UVM_SHAPES_URL)
+  ).json()) as ShapeResponse;
+}
+
 export interface ShapeResponse {
   shape: Shape[];
   success: boolean;
@@ -37,10 +43,10 @@ PEAKTRANSIT_UVM_ETA_URL.searchParams.append("controller", "eta");
 export async function getETAs() {
   return (await (
     await fetch(PEAKTRANSIT_UVM_ROUTESTOP_URL)
-  ).json()) as ETARequest;
+  ).json()) as ETAResponse;
 }
 
-export interface ETARequest {
+export interface ETAResponse {
   stop: StopETA[];
   success: boolean;
 }
@@ -58,10 +64,10 @@ PEAKTRANSIT_UVM_STOPS_URL.searchParams.append("controller", "stop2");
 export async function getStops() {
   return (await (
     await fetch(PEAKTRANSIT_UVM_STOPS_URL)
-  ).json()) as StopsRequest;
+  ).json()) as StopsResponse;
 }
 
-export interface StopsRequest {
+export interface StopsResponse {
   stop: Stop[];
   success: boolean;
 }
@@ -92,10 +98,10 @@ PEAKTRANSIT_UVM_VEHICLES_URL.searchParams.append("controller", "vehicles2");
 export async function getVehicles() {
   return (await (
     await fetch(PEAKTRANSIT_UVM_VEHICLES_URL)
-  ).json()) as VehiclesRequest;
+  ).json()) as VehiclesResponse;
 }
 
-export interface VehiclesRequest {
+export interface VehiclesResponse {
   vehicles: Vehicle[];
   success: boolean;
 }
@@ -174,10 +180,10 @@ PEAKTRANSIT_UVM_ROUTES_URL.searchParams.append("controller", "route2");
 export async function getRoutes() {
   return (await (
     await fetch(PEAKTRANSIT_UVM_ROUTES_URL)
-  ).json()) as RoutesRequest;
+  ).json()) as RoutesResponse;
 }
 
-export interface RoutesRequest {
+export interface RoutesResponse {
   routes: Route[];
   success: boolean;
 }
@@ -214,10 +220,10 @@ PEAKTRANSIT_UVM_ROUTESTOP_URL.searchParams.append("controller", "routestop2");
 export async function getRouteStops() {
   return (await (
     await fetch(PEAKTRANSIT_UVM_ROUTESTOP_URL)
-  ).json()) as RouteStopsRequest;
+  ).json()) as RouteStopsResponse;
 }
 
-export interface RouteStopsRequest {
+export interface RouteStopsResponse {
   routeStops: RouteStop[];
   success: boolean;
 }
