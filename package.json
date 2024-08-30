@@ -6,7 +6,8 @@
     "server",
     "transloc",
     "peaktransit",
-    "svelte-kit"
+    "svelte-kit",
+    "react-next"
   ],
   "devDependencies": {
     "@types/bun": "latest"
