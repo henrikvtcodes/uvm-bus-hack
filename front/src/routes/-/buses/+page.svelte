@@ -1,6 +1,5 @@
 <script lang="ts">
-	import Stop from '$lib/components/bus/stop.svelte';
-	import Vehicle from '$lib/components/bus/vehicle.svelte';
+	import Vehicle from '$lib/components/bus/VehicleCard.svelte';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { getVehicles } from 'peaktransit';
 	const busesQuery = createQuery({

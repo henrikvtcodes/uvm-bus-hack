@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Stop from '$lib/components/bus/stop.svelte';
+	import Stop from '$lib/components/bus/StopCard.svelte';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { getStops } from 'peaktransit';
 	const stopsQuery = createQuery({
@@ -16,7 +16,7 @@
 	{$stopsQuery.error.message}
 {/if}
 {#if $stopsQuery.isSuccess}
-	<div class="flex flex-wrap space-x-2 space-y-2">
+	<div class="flex max-h-full flex-wrap space-y-2 overflow-y-scroll">
 		{#each $stopsQuery.data.stop as stop}
 			<Stop bind:stopData={stop} />
 		{/each}

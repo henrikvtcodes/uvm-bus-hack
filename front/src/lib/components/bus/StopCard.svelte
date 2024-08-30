@@ -5,7 +5,7 @@
 	import * as Card from '$lib/components/ui/card/index.js';
 </script>
 
-<Card.Root class="basis-[0px] shrink-0 grow-1">
+<Card.Root class=" basis-full shrink-0 grow-1">
 	<Card.Header>
 		<Card.Title>{stopData.longName}</Card.Title>
 	</Card.Header>
