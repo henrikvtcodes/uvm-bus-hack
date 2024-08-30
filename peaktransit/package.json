@@ -1,14 +1,16 @@
 {
   "name": "peaktransit",
-  "module": "index.ts",
   "type": "module",
+  "main": "index.ts",
+  "module": "index.ts",
+  "exports": {
+    ".": "./index.ts"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
-  "dependencies": {
-    "zod": "^3.23.8"
-  }
+  "dependencies": {}
 }

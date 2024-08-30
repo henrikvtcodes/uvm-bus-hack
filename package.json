@@ -5,12 +5,14 @@
     "simple",
     "server",
     "transloc",
-    "peaktransit"
+    "peaktransit",
+    "svelte-kit"
   ],
   "devDependencies": {
     "@types/bun": "latest"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
-  }
+  },
+  "module": "index.ts"
 }
