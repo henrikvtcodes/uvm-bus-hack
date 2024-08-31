@@ -1,5 +1,5 @@
 import { queryOptions } from "@tanstack/react-query";
-import { getStops, getVehicles } from "peaktransit";
+import { Stop, getStops, getVehicles } from "peaktransit";
 
 export const getBusesQuery = queryOptions({
   queryKey: ["buses"],
