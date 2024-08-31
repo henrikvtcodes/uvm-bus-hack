@@ -1,6 +1,7 @@
 import { Stop } from "peaktransit";
 import { Card, CardTitle, CardHeader, CardContent } from "./ui/card";
-import { RouteIcon } from "lucide-react";
+import { ArrowRight, ArrowUpRight, RouteIcon } from "lucide-react";
+import NextLink from "next/link";
 
 export function StopCard({
   stopData,
@@ -11,10 +12,13 @@ export function StopCard({
 }) {
   return (
     <Card className="basis-full shrink-0 grow-1">
-      <CardHeader>
+      <CardHeader className="inline-flex flex-row justify-between items-center w-full p-3 px-6 ">
         <CardTitle>{stopData.longName}</CardTitle>
+        <NextLink href={`/-/stops/${stopData.stopID}`}>
+          <ArrowUpRight className="w-auto h-6" />
+        </NextLink>
       </CardHeader>
-      <CardContent className="-mt-2">
+      <CardContent className="">
         <ul className="list-none flex flex-col space-y-2 ">
           {routeData.map((route) => (
             <li key={route.name} className="inline-flex items-center gap-x-2 ">
@@ -34,4 +38,5 @@ export function StopCard({
 export type RouteData = {
   name: string;
   color: string;
+  alternateName?: string;
 };
