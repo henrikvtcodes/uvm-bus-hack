@@ -15,5 +15,11 @@
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
-  "module": "index.ts"
+  "module": "index.ts",
+  "dependencies": {
+    "@tanstack/react-query": "^5.53.1"
+  },
+  "trustedDependencies": [
+    "svelte-preprocess"
+  ]
 }
