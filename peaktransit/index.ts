@@ -41,9 +41,7 @@ const PEAKTRANSIT_UVM_ETA_URL = new URL(PEAKTRANSIT_UVM_ROOT_URL);
 PEAKTRANSIT_UVM_ETA_URL.searchParams.append("controller", "eta");
 
 export async function getETAs() {
-  return (await (
-    await fetch(PEAKTRANSIT_UVM_ROUTESTOP_URL)
-  ).json()) as ETAResponse;
+  return (await (await fetch(PEAKTRANSIT_UVM_ETA_URL)).json()) as ETAResponse;
 }
 
 export interface ETAResponse {

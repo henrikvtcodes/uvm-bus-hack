@@ -102,8 +102,6 @@ export interface Timings {
   receive?: number;
 }
 
-import fs from "fs/promises";
-
 async function getAllUrlsAndComponents() {
   const harFile = Bun.file("./uvm_peaktransit_24-08-28.har");
   const harContents = JSON.parse(await harFile.text()) as HARFile;
