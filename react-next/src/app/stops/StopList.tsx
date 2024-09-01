@@ -1,6 +1,6 @@
 "use client";
 
-import { RouteData, StopCard } from "@/app/-/stops/StopCard";
+import { RouteData, StopCard } from "@/app/stops/StopCard";
 import { Stop } from "peaktransit";
 import { useMemo } from "react";
 

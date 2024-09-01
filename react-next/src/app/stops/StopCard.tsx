@@ -4,7 +4,7 @@ import {
   CardTitle,
   CardHeader,
   CardContent,
-} from "../../../components/ui/card";
+} from "../../components/ui/card";
 import { ArrowUpRight, RouteIcon } from "lucide-react";
 import NextLink from "next/link";
 
