@@ -16,7 +16,7 @@ export function StopMap() {
 
   const selectedStop = useMemo(() => {
     return stopsQuery.data?.stop.find(
-      (stop) => stop.stopID.toString() === stopId,
+      (stop) => stop.stopID.toString() === stopId
     );
   }, [stopsQuery.data, stopId]);
 
@@ -26,6 +26,7 @@ export function StopMap() {
       center={DEFAULT_POSITION}
       zoom={DEFAULT_ZOOM}
       scrollWheelZoom={true}
+      minZoom={14}
     >
       <TileLayer
         url={"https://tile.openstreetmap.org/{z}/{x}/{y}.png"}
@@ -66,7 +67,7 @@ function StopWatcher() {
 
   const selectedStop = useMemo(() => {
     return stopsQuery.data?.stop.find(
-      (stop) => stop.stopID.toString() === stopId,
+      (stop) => stop.stopID.toString() === stopId
     );
   }, [stopsQuery.data, stopId]);
 
