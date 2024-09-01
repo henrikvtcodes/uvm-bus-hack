@@ -19,8 +19,10 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const stops = await getStops();
 
+  const stop = stops.stop.find((stop) => stop.stopID.toString() === stopId);
+
   return {
-    title: `Stop ${stopId}`,
+    title: `${stop?.longName} Stop | Better CATS Bus`,
   };
 }
 

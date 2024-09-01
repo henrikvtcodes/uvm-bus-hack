@@ -5,13 +5,17 @@ import { getBusesQuery, getRoutesQuery, getStopsQuery } from "@/lib/queries";
 import { getRoutes } from "peaktransit";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 
+export const metadata = {
+  title: "Stops | Better CATS Bus",
+};
+
 const StopMap = dynamic(
   async () => {
     return await import("../../../components/StopMap").then(
-      (mod) => mod.StopMap,
+      (mod) => mod.StopMap
     );
   },
-  { ssr: false },
+  { ssr: false }
 );
 
 export default function Page({ children }: { children: ReactNode }) {

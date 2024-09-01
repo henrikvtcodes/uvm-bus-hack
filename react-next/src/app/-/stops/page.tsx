@@ -26,7 +26,7 @@ export default function Page() {
       // Filter for all route-stop adjacencies that have the current stop
       // That is, all routes that include this stop
       const stopRoutes = routeStops.data?.routeStops.filter(
-        (routeStop) => routeStop.stopID === stop.stopID,
+        (routeStop) => routeStop.stopID === stop.stopID
       );
 
       if (!stopRoutes) return;
@@ -35,7 +35,7 @@ export default function Page() {
       // This is the route name and color, purely for display purposes
       data[stop.stopID] = stopRoutes.map((routeStop) => {
         const route = routes.data?.routes.find(
-          (route) => route.routeID === routeStop.routeID,
+          (route) => route.routeID === routeStop.routeID
         );
 
         return {
