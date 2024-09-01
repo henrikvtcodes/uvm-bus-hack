@@ -9,7 +9,7 @@ import {
 } from "peaktransit";
 
 export const getBusesQuery = queryOptions({
-  queryKey: ["buses", "realtime"],
+  queryKey: ["buses"],
   queryFn: getVehicles,
   refetchInterval: 500,
 });
@@ -17,20 +17,23 @@ export const getBusesQuery = queryOptions({
 export const getStopsQuery = queryOptions({
   queryKey: ["stops"],
   queryFn: getStops,
+  refetchInterval: 60 * 1000,
 });
 
 export const getEtasQuery = queryOptions({
-  queryKey: ["etas", "realtime"],
+  queryKey: ["etas"],
   queryFn: getETAs,
-  refetchInterval: 500,
+  refetchInterval: 1000,
 });
 
 export const getRoutesQuery = queryOptions({
   queryKey: ["routes"],
   queryFn: getRoutes,
+  refetchInterval: 60 * 1000,
 });
 
 export const getRouteStopsQuery = queryOptions({
   queryKey: ["routeStops"],
   queryFn: getRouteStops,
+  refetchInterval: 60 * 1000,
 });
