@@ -4,21 +4,19 @@ import { getQueryClient } from "@/lib/query-client";
 import { getBusesQuery, getRoutesQuery, getStopsQuery } from "@/lib/queries";
 import { getRoutes } from "peaktransit";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
+import { StopMapContainer } from "./StopMapContainer";
 
 export const metadata = {
   title: "Stops | Better CATS Bus",
 };
 
-const StopMap = dynamic(
-  async () => {
-    return await import("../../../components/StopMap").then(
-      (mod) => mod.StopMap
-    );
-  },
-  { ssr: false }
-);
-
-export default function Page({ children }: { children: ReactNode }) {
+export default function Page({
+  children,
+  stopMap,
+}: {
+  children: ReactNode;
+  stopMap: ReactNode;
+}) {
   const queryClient = getQueryClient();
 
   void queryClient.prefetchQuery(getBusesQuery);
@@ -31,9 +29,9 @@ export default function Page({ children }: { children: ReactNode }) {
           {children}
         </HydrationBoundary>
       </div>
-      <div className="col-span-3 col-start-2 row-span-1 row-start-1 rounded shadow-md">
+      <div className="col-span-3 col-start-2 row-span-1 row-start-1 rounded-xl shadow-md">
         <HydrationBoundary state={dehydrate(queryClient)}>
-          <StopMap />
+          <StopMapContainer />
         </HydrationBoundary>
       </div>
     </div>
