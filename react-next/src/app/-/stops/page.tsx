@@ -1,6 +1,6 @@
 "use client";
 
-import { type RouteData, StopCard } from "@/components/StopCard";
+import { type RouteData, StopCard } from "@/app/-/stops/StopCard";
 import {
   getRouteStopsQuery,
   getRoutesQuery,

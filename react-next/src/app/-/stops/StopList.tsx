@@ -1,6 +1,6 @@
 "use client";
 
-import { RouteData, StopCard } from "@/components/StopCard";
+import { RouteData, StopCard } from "@/app/-/stops/StopCard";
 import { Stop } from "peaktransit";
 import { useMemo } from "react";
 
@@ -29,7 +29,7 @@ export function StopList({
           aliases.includes(searchValLC)
         );
       }),
-    [allStops, searchValue],
+    [allStops, searchValue]
   );
 
   return (
