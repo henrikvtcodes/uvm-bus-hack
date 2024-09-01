@@ -1,6 +1,11 @@
 import { Stop } from "peaktransit";
-import { Card, CardTitle, CardHeader, CardContent } from "./ui/card";
-import { ArrowRight, ArrowUpRight, RouteIcon } from "lucide-react";
+import {
+  Card,
+  CardTitle,
+  CardHeader,
+  CardContent,
+} from "../../../components/ui/card";
+import { ArrowUpRight, RouteIcon } from "lucide-react";
 import NextLink from "next/link";
 
 export function StopCard({

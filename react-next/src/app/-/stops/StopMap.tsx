@@ -22,7 +22,7 @@ export function StopMap() {
 
   return (
     <MapContainer
-      className="w-full h-full"
+      className="w-full h-full rounded-xl"
       center={DEFAULT_POSITION}
       zoom={DEFAULT_ZOOM}
       scrollWheelZoom={true}
