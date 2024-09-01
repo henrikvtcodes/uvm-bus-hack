@@ -2,9 +2,9 @@
 import { getStopsQuery } from "@/lib/queries";
 import { useQuery } from "@tanstack/react-query";
 import { Stop } from "peaktransit";
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import { useParams } from "next/navigation";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { LatLngExpression } from "leaflet";
 
 const DEFAULT_POSITION = [44.47522, -73.19255] as LatLngExpression;
@@ -20,32 +20,11 @@ export function StopMap() {
     );
   }, [stopsQuery.data, stopId]);
 
-  const { position, zoom } = useMemo<{
-    position: LatLngExpression;
-    zoom: number;
-  }>(
-    () =>
-      selectedStop !== undefined
-        ? { position: [selectedStop.lat, selectedStop.lng], zoom: 19 }
-        : { position: DEFAULT_POSITION, zoom: DEFAULT_ZOOM },
-    [selectedStop],
-  );
-
-  console.log("Stop ID: ", stopId);
-  console.log("Selected Stop: ", selectedStop?.longName);
-  console.log(
-    "Position: ",
-    position === DEFAULT_POSITION ? "Default" : position,
-  );
-  console.log("Zoom: ", zoom === DEFAULT_ZOOM ? "Default" : zoom);
-
   return (
     <MapContainer
-      // Key prop forces the map to rerender when we select/deselect a stop
-      key={zoom}
       className="w-full h-full"
-      center={position}
-      zoom={zoom}
+      center={DEFAULT_POSITION}
+      zoom={DEFAULT_ZOOM}
       scrollWheelZoom={true}
     >
       <TileLayer
@@ -59,6 +38,7 @@ export function StopMap() {
           selected={selectedStop?.stopID === stop.stopID}
         />
       ))}
+      <StopWatcher />
     </MapContainer>
   );
 }
@@ -72,7 +52,31 @@ function StopMarker({
 }) {
   return (
     <Marker position={[stopData.lat, stopData.lng]}>
-      <Popup>{stopData.longName}</Popup>
+      <Popup className="bg-red-300">{stopData.longName}</Popup>
     </Marker>
   );
+}
+
+// This component uses the map hooks to zoom into/out of a stop whenever a stop is selected or deselected.
+function StopWatcher() {
+  const map = useMap();
+  const { stopId } = useParams<{ stopId: string }>();
+
+  const stopsQuery = useQuery(getStopsQuery);
+
+  const selectedStop = useMemo(() => {
+    return stopsQuery.data?.stop.find(
+      (stop) => stop.stopID.toString() === stopId,
+    );
+  }, [stopsQuery.data, stopId]);
+
+  useEffect(() => {
+    if (selectedStop !== undefined) {
+      map.flyTo([selectedStop.lat, selectedStop.lng], 18);
+    } else {
+      map.flyTo(DEFAULT_POSITION, DEFAULT_ZOOM);
+    }
+  }, [selectedStop, map]);
+
+  return null;
 }

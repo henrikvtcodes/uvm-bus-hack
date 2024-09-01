@@ -9,6 +9,20 @@ import { notFound, useParams } from "next/navigation";
 import { StopPage } from "./StopPage";
 import { useMemo } from "react";
 import { getQueryClient } from "@/lib/query-client";
+import type { Metadata } from "next";
+import { getStops } from "peaktransit";
+
+export async function generateMetadata({
+  params: { stopId },
+}: {
+  params: { stopId: string };
+}): Promise<Metadata> {
+  const stops = await getStops();
+
+  return {
+    title: `Stop ${stopId}`,
+  };
+}
 
 export default async function Page({
   params: { stopId },
