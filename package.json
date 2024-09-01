@@ -15,5 +15,6 @@
   "dependencies": {},
   "trustedDependencies": [
     "svelte-preprocess"
-  ]
+  ],
+  "packageManager": "bun@1.1.13"
 }
