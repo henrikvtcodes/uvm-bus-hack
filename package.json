@@ -2,9 +2,6 @@
   "name": "uvmtransit",
   "type": "module",
   "workspaces": [
-    "simple",
-    "server",
-    "transloc",
     "peaktransit",
     "svelte-kit",
     "react-next"
