@@ -16,6 +16,20 @@ import { useRoutesStore } from "@/lib/state/routelist";
 
 export default function Page() {
   const routesQuery = useQuery(getRoutesQuery);
+  const setDrawDefaultState = useRoutesStore(
+    (state) => state.setDrawDefaultState
+  );
+  const setRouteLoadComplete = useRoutesStore(
+    (state) => state.setRouteLoadComplete
+  );
+
+  useEffect(() => {
+    if (routesQuery.data) {
+      const routeIDs = routesQuery.data.routes.map((route) => route.routeID);
+      routeIDs.forEach((routeID) => setDrawDefaultState(routeID));
+      setRouteLoadComplete();
+    }
+  }, [routesQuery.data, setDrawDefaultState, setRouteLoadComplete]);
 
   const [debouncedSearch, setSearch] = useDebounceValue("", 250);
 

@@ -1,24 +1,64 @@
 "use client";
-import { getStopsQuery } from "@/lib/queries";
+import {
+  getRouteShapesQuery,
+  getRoutesQuery,
+  getStopsQuery,
+} from "@/lib/queries";
 import { useQuery } from "@tanstack/react-query";
-import { Stop } from "peaktransit";
+import { getRouteShapes, Stop } from "peaktransit";
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import { useParams } from "next/navigation";
 import { useEffect, useMemo } from "react";
-import { LatLngExpression } from "leaflet";
+import type { LatLngExpression } from "leaflet";
+import { Polyline } from "react-leaflet/Polyline";
+import { useRoutesStore } from "@/lib/state/routelist";
+import { set } from "date-fns";
 
 const DEFAULT_POSITION = [44.47522, -73.19255] as LatLngExpression;
 const DEFAULT_ZOOM = 15 as const;
 
-export function RouteMap() {
-  const stopsQuery = useQuery(getStopsQuery);
-  const { stopId } = useParams<{ stopId: string }>();
+type RouteShape = {
+  routeID: number;
+  color: string;
+  shape: LatLngExpression[];
+};
 
-  const selectedStop = useMemo(() => {
-    return stopsQuery.data?.stop.find(
-      (stop) => stop.stopID.toString() === stopId
-    );
-  }, [stopsQuery.data, stopId]);
+export function RouteMap() {
+  const routesQuery = useQuery(getRoutesQuery);
+  const shapesQuery = useQuery(getRouteShapesQuery);
+  // const { stopId } = useParams<{ stopId: string }>();
+  const routeLoadComplete = useRoutesStore((state) => state.routeLoadComplete);
+  const setHasShape = useRoutesStore((state) => state.setHasShape);
+
+  const routeShapes = useMemo(() => {
+    if (!shapesQuery.data || !routesQuery.data) return [];
+
+    return routesQuery.data.routes
+      .map((route) => {
+        const shape = shapesQuery.data.shape.find(
+          (shape) => shape.shapeID === route.shapeID
+        );
+        if (!shape) return undefined;
+        setHasShape(route.routeID, true);
+        const points = shape.points
+          .split(";")
+          .filter((point) => point.length > 0)
+          .map((point) => {
+            const [lat, lon] = point.split(",");
+
+            return [parseFloat(lat), parseFloat(lon)] as LatLngExpression;
+          });
+
+        console.log("Route ", route.shortName, " points ", points);
+
+        return {
+          routeID: route.routeID,
+          color: route.color,
+          shape: points,
+        };
+      })
+      .filter((shape) => shape !== undefined);
+  }, [shapesQuery.data, routesQuery.data]) satisfies RouteShape[];
 
   return (
     <MapContainer
@@ -29,55 +69,24 @@ export function RouteMap() {
       minZoom={14}
     >
       <TileLayer
-        url={"https://tile.openstreetmap.org/{z}/{x}/{y}.png"}
+        url={"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"}
         attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       />
-      {/* {stopsQuery.data?.stop.map((stop) => (
-        <StopMarker
-          key={stop.stopID}
-          stopData={stop}
-          selected={selectedStop?.stopID === stop.stopID}
-        />
-      ))} */}
-      {/* <StopWatcher /> */}
+      {routeLoadComplete
+        ? routeShapes.map((shape) => (
+            <RouteShape key={shape.routeID} shape={shape} />
+          ))
+        : null}
     </MapContainer>
   );
 }
 
-// function StopMarker({
-//   stopData,
-//   selected,
-// }: {
-//   stopData: Stop;
-//   selected: boolean;
-// }) {
-//   return (
-//     <Marker position={[stopData.lat, stopData.lng]}>
-//       <Popup className="bg-red-300">{stopData.longName}</Popup>
-//     </Marker>
-//   );
-// }
+function RouteShape({ shape }: { shape: RouteShape }) {
+  const shouldShow = useRoutesStore(
+    (state) => state.routes[shape.routeID].draw
+  );
 
-// // This component uses the map hooks to zoom into/out of a stop whenever a stop is selected or deselected.
-// function StopWatcher() {
-//   const map = useMap();
-//   const { stopId } = useParams<{ stopId: string }>();
-
-//   const stopsQuery = useQuery(getStopsQuery);
-
-//   const selectedStop = useMemo(() => {
-//     return stopsQuery.data?.stop.find(
-//       (stop) => stop.stopID.toString() === stopId
-//     );
-//   }, [stopsQuery.data, stopId]);
-
-//   useEffect(() => {
-//     if (selectedStop !== undefined) {
-//       map.flyTo([selectedStop.lat, selectedStop.lng], 18);
-//     } else {
-//       map.flyTo(DEFAULT_POSITION, DEFAULT_ZOOM);
-//     }
-//   }, [selectedStop, map]);
-
-//   return null;
-// }
+  return shouldShow ? (
+    <Polyline positions={shape.shape} color={`#${shape.color}`} />
+  ) : null;
+}

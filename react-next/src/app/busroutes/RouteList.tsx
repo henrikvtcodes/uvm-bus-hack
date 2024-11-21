@@ -14,9 +14,8 @@ export function RouteList({
   allRoutes: Route[];
   searchValue: string;
 }) {
-  const setDrawDefaultState = useRoutesStore(
-    (state) => state.setDrawDefaultState
-  );
+  const routeLoadComplete = useRoutesStore((state) => state.routeLoadComplete);
+
   const listSpecialEventRoutes = useRoutesStore(
     (state) => state.listSpecialEventRoutes
   );
@@ -27,8 +26,6 @@ export function RouteList({
   const filteredRoutes = useMemo(
     () =>
       allRoutes.filter((route) => {
-        setDrawDefaultState(route.routeID);
-
         const longName = route.longName.toLowerCase();
         const shortName = (route.shortName ?? "").toLowerCase();
         const aliases = (route.shortName ?? "").toLowerCase();
@@ -42,10 +39,10 @@ export function RouteList({
           aliases.includes(searchValLC)
         );
       }),
-    [allRoutes, searchValue, setDrawDefaultState]
+    [allRoutes, searchValue]
   );
 
-  if (searchValue.length < 2) {
+  if (searchValue.length < 2 || !routeLoadComplete) {
     return (
       <>
         {filteredRoutes

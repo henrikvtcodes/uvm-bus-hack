@@ -13,15 +13,13 @@ import { useRoutesStore } from "@/lib/state/routelist";
 import { useEffect } from "react";
 
 export function RouteCard({ routeData }: { routeData: Route }) {
+  const hasShape = useRoutesStore(
+    (state) => state.routes[routeData.routeID].hasShape
+  );
   const shouldShow = useRoutesStore(
     (state) => state.routes[routeData.routeID].draw
   );
   const setShow = useRoutesStore((state) => state.setDrawRoute);
-
-  useEffect(() => {
-    console.log("Load route card for ", routeData.shortName);
-    return () => console.log("Unload route card for ", routeData.shortName);
-  });
 
   return (
     <Card className="basis-full shrink-0 grow-1">
@@ -36,12 +34,22 @@ export function RouteCard({ routeData }: { routeData: Route }) {
       </CardHeader>
       <CardContent>
         <div className="flex items-center space-x-2">
-          <Switch
-            id={`drawRoute-${routeData.routeID}`}
-            checked={shouldShow}
-            onCheckedChange={(checked) => setShow(routeData.routeID, checked)}
-          />
-          <Label htmlFor={`drawRoute-${routeData.routeID}`}>Show route</Label>
+          {hasShape ? (
+            <>
+              <Switch
+                id={`drawRoute-${routeData.routeID}`}
+                checked={shouldShow}
+                onCheckedChange={(checked) =>
+                  setShow(routeData.routeID, checked)
+                }
+              />
+              <Label htmlFor={`drawRoute-${routeData.routeID}`}>
+                Show route
+              </Label>
+            </>
+          ) : (
+            <Label>Route has no outline</Label>
+          )}
         </div>
       </CardContent>
     </Card>

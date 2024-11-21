@@ -2,6 +2,7 @@ import { queryOptions } from "@tanstack/react-query";
 import {
   Stop,
   getETAs,
+  getRouteShapes,
   getRouteStops,
   getRoutes,
   getStops,
@@ -35,5 +36,11 @@ export const getRoutesQuery = queryOptions({
 export const getRouteStopsQuery = queryOptions({
   queryKey: ["routeStops"],
   queryFn: getRouteStops,
+  refetchInterval: 60 * 1000,
+});
+
+export const getRouteShapesQuery = queryOptions({
+  queryKey: ["routeShapes"],
+  queryFn: getRouteShapes,
   refetchInterval: 60 * 1000,
 });

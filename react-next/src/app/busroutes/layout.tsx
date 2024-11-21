@@ -7,7 +7,7 @@ import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 // import { StopMapContainer } from "./StopMapContainer";
 
 export const metadata = {
-  title: "Stops | Better CATS Bus",
+  title: "Routes | Better CATS Bus",
 };
 
 export default function Layout({
