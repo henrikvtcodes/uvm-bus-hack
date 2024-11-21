@@ -4,7 +4,7 @@ import { getQueryClient } from "@/lib/query-client";
 import { getBusesQuery, getRoutesQuery, getStopsQuery } from "@/lib/queries";
 import { getRoutes } from "peaktransit";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
-import { StopMapContainer } from "./StopMapContainer";
+// import { StopMapContainer } from "./StopMapContainer";
 
 export const metadata = {
   title: "Stops | Better CATS Bus",
@@ -12,7 +12,7 @@ export const metadata = {
 
 export default function Layout({
   children,
-  stopMap,
+  // stopMap,
 }: {
   children: ReactNode;
   stopMap: ReactNode;
@@ -31,7 +31,7 @@ export default function Layout({
       </div>
       <div className="col-span-3 col-start-2 row-span-1 row-start-1 rounded-xl shadow-md">
         <HydrationBoundary state={dehydrate(queryClient)}>
-          <StopMapContainer />
+          {/* <StopMapContainer /> */}
         </HydrationBoundary>
       </div>
     </div>
