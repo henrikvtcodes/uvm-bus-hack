@@ -19,7 +19,7 @@ export function StopCard({
     <Card className="basis-full shrink-0 grow-1">
       <CardHeader className="inline-flex flex-row justify-between items-center w-full p-3 px-6 ">
         <CardTitle>{stopData.longName}</CardTitle>
-        <NextLink href={`/-/stops/${stopData.stopID}`}>
+        <NextLink href={`/stops/${stopData.stopID}`}>
           <ArrowUpRight className="w-auto h-6" />
         </NextLink>
       </CardHeader>

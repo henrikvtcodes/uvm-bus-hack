@@ -43,7 +43,7 @@ export function StopPage({ stopData }: { stopData: Stop }) {
     <Card className="w-full min-h-full overflow-y-auto">
       <CardHeader>
         <NextLink
-          href={`/-/stops`}
+          href={`/stops`}
           className="mb-2 inline-flex items-center font-semibold font-xs"
         >
           <ArrowLeft className="cursor-pointer w-auto h-6" /> Back
