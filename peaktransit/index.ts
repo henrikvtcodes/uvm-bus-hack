@@ -6,7 +6,7 @@ const AGENCY_ID = 159 as const;
 const API_URL_KEY_PARAM = "c620b8fe5fdbd6107da8c8381f4345b4" as const;
 
 export const PEAKTRANSIT_UVM_ROOT_URL = new URL(
-  `https://api.peaktransit.com/v5/index.php?app_id=_RIDER&key=${API_URL_KEY_PARAM}&action=list&agencyID=${AGENCY_ID}`,
+  `https://api.peaktransit.com/v5/index.php?app_id=_RIDER&key=${API_URL_KEY_PARAM}&action=list&agencyID=${AGENCY_ID}`
 );
 
 const PEAKTRANSIT_UVM_SHAPES_URL = new URL(PEAKTRANSIT_UVM_ROOT_URL);
@@ -211,6 +211,12 @@ export interface Route {
   routeCode: string;
   special_service: boolean;
 }
+
+export const STANDARD_ROUTE_IDS = [
+  12361, // On-Campus Routes
+  12362, // Redstone Express
+  12363, // Catamount Gold
+] as const;
 
 const PEAKTRANSIT_UVM_ROUTESTOP_URL = new URL(PEAKTRANSIT_UVM_ROOT_URL);
 PEAKTRANSIT_UVM_ROUTESTOP_URL.searchParams.append("controller", "routestop2");
