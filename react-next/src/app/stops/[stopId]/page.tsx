@@ -26,11 +26,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({
-  params: { stopId },
-}: {
-  params: { stopId: string };
-}) {
+export default async function Page({ params }: { params: { stopId: string } }) {
+  const { stopId } = await params;
   const queryClient = getQueryClient();
 
   const stops = await queryClient.fetchQuery(getStopsQuery);

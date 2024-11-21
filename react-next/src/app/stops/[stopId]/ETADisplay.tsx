@@ -1,6 +1,6 @@
+"use client";
 import { getEtasQuery } from "@/lib/queries";
 import { useQuery } from "@tanstack/react-query";
-import { time } from "console";
 import {
   formatDistance,
   formatDistanceStrict,
@@ -23,9 +23,11 @@ export function ETADisplay({
 
   const rawETA = useMemo(
     () =>
-      etaQuery.data?.stop.filter(
-        (stop) => stop.stopID === stopId && stop.routeID === routeId
-      ) ?? [],
+      (etaQuery.data &&
+        etaQuery.data?.stop.filter(
+          (stop) => stop.stopID === stopId && stop.routeID === routeId
+        )) ??
+      [],
     [etaQuery.data?.stop, routeId, stopId]
   );
 

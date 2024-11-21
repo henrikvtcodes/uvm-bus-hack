@@ -62,9 +62,9 @@ export function StopPage({ stopData }: { stopData: Stop }) {
               />
               <h2 className="font-semibold">{route.longName}</h2>
             </span>
-            <div className="pl-8">
+            {/* <div className="pl-8">
               <ETADisplay stopId={stopData.stopID} routeId={route.routeID} />
-            </div>
+            </div> */}
           </div>
         ))}
       </CardContent>
