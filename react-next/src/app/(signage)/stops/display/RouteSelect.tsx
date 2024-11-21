@@ -25,7 +25,7 @@ export function RouteSelector({ onChange }: RouteSelectorProps) {
   const routeStopsQuery = useQuery(getRouteStopsQuery);
 
   const stopRouteData = useMemo(() => {
-    const data: Route[] = {};
+    const data: Route[] = [];
 
     stopsQuery.data?.stop.forEach((stop) => {
       // Filter for all route-stop adjacencies that have the current stop
@@ -41,7 +41,11 @@ export function RouteSelector({ onChange }: RouteSelectorProps) {
       data;
     });
     return data;
-  }, [routeStops.data?.routeStops, routes.data?.routes, stopsQuery.data?.stop]);
+  }, [
+    routeStopsQuery.data?.routeStops,
+    routesQuery.data?.routes,
+    stopsQuery.data?.stop,
+  ]);
 
   return (
     <>
