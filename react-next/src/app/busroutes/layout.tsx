@@ -12,10 +12,10 @@ export const metadata = {
 
 export default function Layout({
   children,
-  // stopMap,
+  routeMap,
 }: {
   children: ReactNode;
-  stopMap: ReactNode;
+  routeMap: ReactNode;
 }) {
   const queryClient = getQueryClient();
 
@@ -31,7 +31,7 @@ export default function Layout({
       </div>
       <div className="col-span-3 col-start-2 row-span-1 row-start-1 rounded-xl shadow-md">
         <HydrationBoundary state={dehydrate(queryClient)}>
-          {/* <StopMapContainer /> */}
+          {routeMap}
         </HydrationBoundary>
       </div>
     </div>

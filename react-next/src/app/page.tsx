@@ -47,7 +47,7 @@ export default function Home() {
             </li>
             <li>
               <NextLink
-                href={`/routes`}
+                href={`/busroutes`}
                 className={buttonVariants({
                   variant: "link",
                   className: "gap-x-2",
