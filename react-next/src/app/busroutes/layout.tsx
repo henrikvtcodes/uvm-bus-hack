@@ -1,10 +1,7 @@
 import { ReactNode } from "react";
-import dynamic from "next/dynamic";
 import { getQueryClient } from "@/lib/query-client";
 import { getBusesQuery, getRoutesQuery, getStopsQuery } from "@/lib/queries";
-import { getRoutes } from "peaktransit";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
-// import { StopMapContainer } from "./StopMapContainer";
 
 export const metadata = {
   title: "Routes | Better CATS Bus",

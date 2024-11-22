@@ -58,7 +58,7 @@ export function RouteMap() {
         };
       })
       .filter((shape) => shape !== undefined);
-  }, [shapesQuery.data, routesQuery.data]) satisfies RouteShape[];
+  }, [shapesQuery.data, routesQuery.data, setHasShape]) satisfies RouteShape[];
 
   return (
     <MapContainer
@@ -66,7 +66,7 @@ export function RouteMap() {
       center={DEFAULT_POSITION}
       zoom={DEFAULT_ZOOM}
       scrollWheelZoom={true}
-      minZoom={14}
+      minZoom={15}
     >
       <TileLayer
         url={"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"}

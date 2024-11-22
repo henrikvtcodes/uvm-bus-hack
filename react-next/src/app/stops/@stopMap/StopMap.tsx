@@ -1,11 +1,11 @@
 "use client";
 import { getStopsQuery } from "@/lib/queries";
 import { useQuery } from "@tanstack/react-query";
-import { Stop } from "peaktransit";
+import type { Stop } from "peaktransit";
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import { useParams } from "next/navigation";
 import { useEffect, useMemo } from "react";
-import { LatLngExpression } from "leaflet";
+import type { LatLngExpression } from "leaflet";
 
 const DEFAULT_POSITION = [44.47522, -73.19255] as LatLngExpression;
 const DEFAULT_ZOOM = 15 as const;
@@ -26,7 +26,7 @@ export function StopMap() {
       center={DEFAULT_POSITION}
       zoom={DEFAULT_ZOOM}
       scrollWheelZoom={true}
-      minZoom={14}
+      minZoom={15}
     >
       <TileLayer
         url={"https://tile.openstreetmap.org/{z}/{x}/{y}.png"}
