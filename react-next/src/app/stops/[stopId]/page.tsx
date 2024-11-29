@@ -13,10 +13,11 @@ import type { Metadata } from "next";
 import { getStops } from "peaktransit";
 
 export async function generateMetadata({
-  params: { stopId },
+  params,
 }: {
   params: { stopId: string };
 }): Promise<Metadata> {
+  const { stopId } = await params;
   const stops = await getStops();
 
   const stop = stops.stop.find((stop) => stop.stopID.toString() === stopId);
@@ -25,6 +26,8 @@ export async function generateMetadata({
     title: `${stop?.longName} Stop | Better CATS Bus`,
   };
 }
+
+export const dynamic = "force-dynamic";
 
 export default async function Page({ params }: { params: { stopId: string } }) {
   const { stopId } = await params;
